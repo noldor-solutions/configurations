@@ -1,0 +1,25 @@
+startup --host_jvm_args=-DBAZEL_TRACK_SOURCE_DIRECTORIES=1
+
+common --incompatible_allow_tags_propagation
+
+run --color=yes
+
+build --color=yes
+build --verbose_failures
+build --enable_runfiles
+build --sandbox_default_allow_network=false
+build --incompatible_strict_action_env
+build --modify_execution_info=PackageTar=+no-remote
+build --nolegacy_external_runfiles
+build --heap_dump_on_oom
+build --incompatible_remote_results_ignore_disk
+build --incompatible_default_to_explicit_init_py
+build --noexperimental_check_output_files --noexperimental_check_external_repository_files
+build --incompatible_remote_build_event_upload_respect_no_cache
+build --experimental_reuse_sandbox_directories
+
+test --test_verbose_timeout_warnings
+test --test_output=errors
+test --test_verbose_timeout_warnings
+test --test_summary=terse
+test --incompatible_exclusive_test_sandboxed
