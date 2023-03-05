@@ -3,6 +3,23 @@ load(
   "http_archive"
 )
 http_archive(
+  name = "aspect_bazel_lib",
+  sha256 = "b4cd1114874ab15f794134eefbc254eb89d3e1de640bf4a11f2f402e886ad29e",
+  strip_prefix = "bazel-lib-1.27.2",
+  url = "https://github.com/aspect-build/bazel-lib/releases/download/v1.27.2/bazel-lib-v1.27.2.tar.gz",
+)
+
+load(
+  "@aspect_bazel_lib//lib:repositories.bzl",
+  "aspect_bazel_lib_dependencies"
+)
+aspect_bazel_lib_dependencies()
+
+load(
+  "@bazel_tools//tools/build_defs/repo:http.bzl",
+  "http_archive"
+)
+http_archive(
   name = "aspect_rules_js",
   sha256 = "1aa0ab76d1f9520bb8993e2d84f82da2a9c87da1e6e8d121dbb4c857a292c2cd",
   strip_prefix = "rules_js-1.20.1",
@@ -68,8 +85,45 @@ rules_ts_dependencies(
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 http_archive(
-    name = "aspect_rules_esbuild",
-    sha256 = "c78d38d6ec2e7497dde4f8d67f49c71614daf11e2bbe276e23f5b09a89801677",
-    strip_prefix = "rules_esbuild-0.14.1",
-    url = "https://github.com/aspect-build/rules_esbuild/releases/download/v0.14.1/rules_esbuild-v0.14.1.tar.gz",
+  name = "aspect_rules_esbuild",
+  sha256 = "c78d38d6ec2e7497dde4f8d67f49c71614daf11e2bbe276e23f5b09a89801677",
+  strip_prefix = "rules_esbuild-0.14.1",
+  url = "https://github.com/aspect-build/rules_esbuild/releases/download/v0.14.1/rules_esbuild-v0.14.1.tar.gz",
 )
+
+
+load(
+  "@aspect_rules_esbuild//esbuild:dependencies.bzl",
+  "rules_esbuild_dependencies"
+)
+rules_esbuild_dependencies()
+
+load(
+  "@aspect_rules_esbuild//esbuild:repositories.bzl",
+  "LATEST_VERSION",
+  "esbuild_register_toolchains"
+)
+
+esbuild_register_toolchains(
+  name = "esbuild",
+  esbuild_version = LATEST_VERSION,
+)
+
+load(
+  "@bazel_tools//tools/build_defs/repo:http.bzl",
+  "http_archive"
+)
+http_archive(
+    name = "rules_pkg",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_pkg/releases/download/0.8.1/rules_pkg-0.8.1.tar.gz",
+        "https://github.com/bazelbuild/rules_pkg/releases/download/0.8.1/rules_pkg-0.8.1.tar.gz",
+    ],
+    sha256 = "8c20f74bca25d2d442b327ae26768c02cf3c99e93fad0381f32be9aab1967675",
+)
+
+load(
+  "@rules_pkg//:deps.bzl",
+  "rules_pkg_dependencies"
+)
+rules_pkg_dependencies()

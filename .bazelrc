@@ -15,7 +15,7 @@ build --heap_dump_on_oom
 build --incompatible_remote_results_ignore_disk
 build --incompatible_default_to_explicit_init_py
 build --noexperimental_check_output_files --noexperimental_check_external_repository_files
-build --incompatible_remote_build_event_upload_respect_no_cache
+build --experimental_remote_build_event_upload=minimal
 build --experimental_reuse_sandbox_directories
 
 test --test_verbose_timeout_warnings

@@ -2,9 +2,6 @@
   "name": "@nldr/commitlint-config",
   "version": "1.0.0",
   "license": "MIT",
-  "scripts": {
-    "build": "tsc --project ./tsconfig.json --outDir dist"
-  },
   "peerDependencies": {
     "@commitlint/cli": "^17.0.0"
   },
